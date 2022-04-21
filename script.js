@@ -10,9 +10,18 @@ function showdisplay(){
 }
 
 function addItem(char){
+    debugger;
     let string = char.toString();
-    if (char !== '=' || char !== '/' || char !== '*' || char !== '+' || char !== '-'){
-        if (display.length > 0){
+    //prevents first input from being an operator
+    if (char === '=' && display.length <= 0 || char === '/' && display.length <= 0 || char === '*' && display.length <= 0 || char === '+' && display.length <= 0 || char === '-' && display.length <= 0){
+        alert('Please add numbers before trying to add an operator!')
+    }if (display[display.length -1] === '=' && typeof char != 'number' || display[display.length -1] === '/' && typeof char != 'number' || display[display.length -1] === '*' && typeof char != 'number' || display[display.length -1] === '+' && typeof char != 'number' || display[display.length -1] === '-' && typeof char != 'number'){
+        alert('You cannot put operators next to one another')
+    }
+    //checks if it's a number, then adds it in
+    else if (typeof char == 'number'){
+        let converter = Number(display[display.length -1]); 
+        if (display.length > 0 && isNaN(converter) === false){
             display[display.length -1] = display[display.length -1] += string;
      // display.splice(-1, 1, string);
         } else {
@@ -24,6 +33,7 @@ function addItem(char){
     }
     showdisplay();
 }
+//query selectors for buttons
 document.querySelector('#one').onclick = function(){addItem(1);}
 document.querySelector('#two').onclick = function(){addItem(2);}
 document.querySelector('#three').onclick = function(){addItem(3);}
